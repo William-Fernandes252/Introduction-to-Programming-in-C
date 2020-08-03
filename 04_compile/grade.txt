@@ -1,7 +1,6 @@
-Grading at Mon Aug  3 01:38:23 UTC 2020
+Grading at Mon Aug  3 01:43:48 UTC 2020
 Compiling your code
 Checking if your program prints "Hello World"
-Line_1_did_not_match
-Your file did not match the expected ouput
+Your file matched the expected output
 
-Overall Grade: FAILED
+Overall Grade: PASSED
