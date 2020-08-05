@@ -1,0 +1,52 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct {
+  int months;
+  double contribution;
+  double rate_of_return;
+} retire_info;
+
+double balance(double prevBalance, double contribution, double rate_of_return) {
+
+  double currentBalance = prevBalance + (prevBalance * rate_of_return) + cotribution; 
+
+  return currentBalance;
+  
+}
+
+void retirement(int startAge /*in months*/, double initial /*initial savings in dollars*/, retire_info working, retire_info retired) {
+
+  for(int m = 0; m < working.months; m++) {
+    startAge++;
+    initial += balance(initial, working.contribution, working.rate_of_return);
+    printf("Age %3d month %2d you have $%2lf\n", startAge / 12, startAge % 12, initial);
+  }
+
+  for(int v = 0; v < retired.months; v++) {
+    startAge++;
+    initial += balance(initial, retired.contribution, retired.rate_of_return);
+    printf("Age %3d month %2d you have $%2lf\n", startAge / 12, startAge % 12, initial);
+    
+}
+
+void Computing_Retirement main(retire_info retirement) {
+
+  //Starting conditions:
+  int age = 327;
+  double savings = 21.345;
+
+  retire_info working = {
+    retirement.months = 489;
+    retirement.cotribution = 1000.00;
+    retirement.rate_of_return = 0.045/12;
+  };
+  
+  retire_info retired = {
+    retirement.months = 384;
+    retirement.cotribution = -4000.00;
+    retirement.rate_of_return = 0.01/12;
+  };
+
+  retirement(age, savings, working, retired);
+}
