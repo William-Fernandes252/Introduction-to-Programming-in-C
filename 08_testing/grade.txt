@@ -1,17 +1,22 @@
-Grading at Thu Aug  6 00:15:15 UTC 2020
+Grading at Thu Aug  6 00:19:37 UTC 2020
 #################################################
 test input.1:
 I expected to find a file called 'input.1' but it did not exist
 (or was not a regular file)
 Here are the files that I can find:
+grade.txt
 imput.1
 imput.1~
+imput.1.txt
 imput.2
 imput.2~
+imput.2.txt
 imput.3
 imput.3~
+imput.3.txt
 imput.4
 imput.4~
+imput.4.txt
 isPrime-broken1
 isPrime-broken2
 isPrime-broken3
@@ -23,14 +28,19 @@ test input.2:
 I expected to find a file called 'input.2' but it did not exist
 (or was not a regular file)
 Here are the files that I can find:
+grade.txt
 imput.1
 imput.1~
+imput.1.txt
 imput.2
 imput.2~
+imput.2.txt
 imput.3
 imput.3~
+imput.3.txt
 imput.4
 imput.4~
+imput.4.txt
 isPrime-broken1
 isPrime-broken2
 isPrime-broken3
@@ -42,14 +52,19 @@ test input.3:
 I expected to find a file called 'input.3' but it did not exist
 (or was not a regular file)
 Here are the files that I can find:
+grade.txt
 imput.1
 imput.1~
+imput.1.txt
 imput.2
 imput.2~
+imput.2.txt
 imput.3
 imput.3~
+imput.3.txt
 imput.4
 imput.4~
+imput.4.txt
 isPrime-broken1
 isPrime-broken2
 isPrime-broken3
@@ -61,14 +76,19 @@ test input.4:
 I expected to find a file called 'input.4' but it did not exist
 (or was not a regular file)
 Here are the files that I can find:
+grade.txt
 imput.1
 imput.1~
+imput.1.txt
 imput.2
 imput.2~
+imput.2.txt
 imput.3
 imput.3~
+imput.3.txt
 imput.4
 imput.4~
+imput.4.txt
 isPrime-broken1
 isPrime-broken2
 isPrime-broken3
