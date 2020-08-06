@@ -1,99 +1,22 @@
-Grading at Thu Aug  6 00:19:37 UTC 2020
+Grading at Thu Aug  6 01:10:10 UTC 2020
 #################################################
 test input.1:
-I expected to find a file called 'input.1' but it did not exist
-(or was not a regular file)
-Here are the files that I can find:
-grade.txt
-imput.1
-imput.1~
-imput.1.txt
-imput.2
-imput.2~
-imput.2.txt
-imput.3
-imput.3~
-imput.3.txt
-imput.4
-imput.4~
-imput.4.txt
-isPrime-broken1
-isPrime-broken2
-isPrime-broken3
-isPrime-broken4
-isPrime-correct
-README
+Line_1_did_not_match
+Your file did not match the expected ouput
+input.1 failed, your output did not match with the answer
 #################################################
 test input.2:
-I expected to find a file called 'input.2' but it did not exist
-(or was not a regular file)
-Here are the files that I can find:
-grade.txt
-imput.1
-imput.1~
-imput.1.txt
-imput.2
-imput.2~
-imput.2.txt
-imput.3
-imput.3~
-imput.3.txt
-imput.4
-imput.4~
-imput.4.txt
-isPrime-broken1
-isPrime-broken2
-isPrime-broken3
-isPrime-broken4
-isPrime-correct
-README
+Line_1_did_not_match
+Your file did not match the expected ouput
+input.2 failed, your output did not match with the answer
 #################################################
 test input.3:
-I expected to find a file called 'input.3' but it did not exist
-(or was not a regular file)
-Here are the files that I can find:
-grade.txt
-imput.1
-imput.1~
-imput.1.txt
-imput.2
-imput.2~
-imput.2.txt
-imput.3
-imput.3~
-imput.3.txt
-imput.4
-imput.4~
-imput.4.txt
-isPrime-broken1
-isPrime-broken2
-isPrime-broken3
-isPrime-broken4
-isPrime-correct
-README
+Line_1_did_not_match
+Your file did not match the expected ouput
+input.3 failed, your output did not match with the answer
 #################################################
 test input.4:
-I expected to find a file called 'input.4' but it did not exist
-(or was not a regular file)
-Here are the files that I can find:
-grade.txt
-imput.1
-imput.1~
-imput.1.txt
-imput.2
-imput.2~
-imput.2.txt
-imput.3
-imput.3~
-imput.3.txt
-imput.4
-imput.4~
-imput.4.txt
-isPrime-broken1
-isPrime-broken2
-isPrime-broken3
-isPrime-broken4
-isPrime-correct
-README
+Your file matched the expected output
+input.4 passed
 
-Overall Grade: F
+Overall Grade: D
