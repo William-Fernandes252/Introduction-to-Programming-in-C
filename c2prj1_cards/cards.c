@@ -6,7 +6,7 @@
 
 void assert_card_valid(card_t c) {
   assert(c.value >= 2 && c.value <= VALUE_ACE);
-  assert(c.suit >= 0 && c.suit <= 4);
+  assert(c.suit >= 0 && c.suit <= 3);
 }
 
 const char * ranking_to_string(hand_ranking_t r) {
