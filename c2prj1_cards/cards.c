@@ -111,6 +111,9 @@ card_t card_from_letters(char value_let, char suit_let) {
   else if(value_let == '7') {
     temp.value = 7;
   }
+  else if(value_let == '8') {
+    temp.value = 8;
+  }
   else if(value_let == '9') {
     temp.value = 9;
   }
