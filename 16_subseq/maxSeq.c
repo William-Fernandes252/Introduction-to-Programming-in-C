@@ -10,8 +10,8 @@ size_t maxSeq (int * array, size_t n) {
     return 0;
   }
   
-  for(size_t i = 1; i < n; ++i) {
-    if(array[i] > array[i - 1]) {
+  for(size_t i = 0; i < n; ++i) {
+    if(array[i + 1] > array[i]) {
       lenght += 1;
     }
     else {
