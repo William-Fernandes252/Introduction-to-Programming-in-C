@@ -7,7 +7,7 @@ size_t maxSeq (int * array, size_t n) {
   for(int i = 1; i < n; i++){
     if(array[i] > array[i - 1]){
       length++;
-      if(lenght > result) {
+      if(length > result) {
 	result = length;
     }
       else {
