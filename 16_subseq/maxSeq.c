@@ -4,17 +4,23 @@
 size_t maxSeq (int * array, size_t n) {
   size_t length = 1;
   size_t result = 0;
-  int *pArray = array;
-  for(int i = 1; i < n; i++){
-    if(pArray[i] > pArray[i - 1]){
+
+  if(n == 0) {
+    return 0;
+  }
+  
+  for(int i = 1; i < n; i++) {
+    if(pArray[i] > pArray[i - 1]) {
       length++;
-      if(length > result) {
+    }
+    else if(length > result) {
 	result = length;
+	lenght = 1;
     }
-      else {
-	length = 1;
-      }
-    }
+  }
+
+  if(lenght > result) {
+    result = lenght;
   }
   return result;
 }
