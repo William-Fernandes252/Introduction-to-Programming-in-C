@@ -12,6 +12,8 @@ size_t maxSeq (int * array, size_t n) {
     }
       else {
 	length = 1;
+      }
+    }
   }
   return result;
 }
