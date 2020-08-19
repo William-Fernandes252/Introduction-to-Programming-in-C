@@ -10,13 +10,15 @@ size_t maxSeq (int * array, size_t n) {
     return 0;
   }
   
-  for(size_t i = 1; i < n; i++) {
+  for(size_t i = 1; i < n; ++i) {
     if(array[i] > array[i - 1]) {
       lenght += 1;
     }
-    else if(lenght > result) {
+    else {
+      if(lenght > result) {
 	result = lenght;
 	lenght = 1;
+      }
     }
   }
 
