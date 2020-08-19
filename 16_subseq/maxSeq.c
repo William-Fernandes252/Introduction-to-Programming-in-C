@@ -2,7 +2,7 @@
 #include<stdlib.h>
 
 size_t maxSeq (int * array, size_t n) {
-  size_t length = 1;
+  size_t lenght = 1;
   size_t result = 0;
 
   if(n == 0) {
@@ -10,11 +10,11 @@ size_t maxSeq (int * array, size_t n) {
   }
   
   for(int i = 1; i < n; i++) {
-    if(pArray[i] > pArray[i - 1]) {
-      length++;
+    if(array[i] > array[i - 1]) {
+      lenght++;
     }
-    else if(length > result) {
-	result = length;
+    else if(lenght > result) {
+	result = lenght;
 	lenght = 1;
     }
   }
