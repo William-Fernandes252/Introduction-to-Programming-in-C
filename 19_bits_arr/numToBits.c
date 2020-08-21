@@ -49,6 +49,7 @@ void numToBits(uint32_t * nums, int nNums, int * bits, int nBits) {
     }
   } 
     // bits[i] = getNthBit(nums[i]); 
+  return;
 }
 
 void doTest(uint32_t * nums, int n) {
