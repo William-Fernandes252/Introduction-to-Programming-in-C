@@ -3,7 +3,7 @@
 
 unsigned power (unsigned x, unsigned y) {
 
-  if((x == 0 && y == 0)) {
+  if((x == 0 && y == 0) || y == 0) {
     return 1;
   }
 
