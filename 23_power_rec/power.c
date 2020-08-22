@@ -11,8 +11,5 @@ unsigned power (unsigned x, unsigned y) {
     return 0;
   }
 
-  unsigned ans = x * x;
-  unsigned helper = y - 1;
-
-  return ans * power(ans, helper);
+  return x * power(x, y - 1);
 }
