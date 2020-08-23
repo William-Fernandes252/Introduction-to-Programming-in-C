@@ -4,28 +4,148 @@
 #include <assert.h>
 
 int card_ptr_comp(const void * vp1, const void * vp2) {
-  return 0;
+  const card_t * const * cp1 = vp1;
+  const card_t * const * cp2 = vp2;
+  
+  int valDiffr = (**cp2).value - (**cp1).value;
+  int suitDiffr = (**cp2).suit - (**cp1).suit;
+
+  if((valDiffr == 0) && (suitDiffr == 0)) {
+    return 0;
+  }
+  else if((valDiffr == 0) && (suitDiffr != 0)) {
+    return suitDiffr;
+  }
+  else {
+    return valDiffr;
+  }
 }
 
 suit_t flush_suit(deck_t * hand) {
-  return NUM_SUITS;
+  suit_t currSuit;
+  int spadesCnt = 0, heartsCnt = 0, diamondsCnt = 0, clubsCnt = 0;
+
+  for(size_t i = 0; i < hand->n_cards; i++) {
+    currSuit = (*hand->cards[i]).suit;
+    switch (currSuit) {
+    case SPADES: spadesCnt++; break;
+    case HEARTS: heartsCnt++; break;
+    case DIAMONDS: diamondsCnt++; break;
+    case CLUBS: clubsCnt++; break;
+    default: printf("Found a invalid suit when searching for a flush\n"); break;
+    }
+  }
+
+  if(spadesCnt > 5) return SPADES;
+  else if(heartsCnt > 5) return HEARTS;
+  else if(diamondsCnt > 5) return DIAMONDS;
+  else if(clubsCnt > 5) return CLUBS;
+  else return NUM_SUITS;
 }
 
 unsigned get_largest_element(unsigned * arr, size_t n) {
-  return 0;
+  unsigned largest = arr[0];
+  for(size_t i = 1; i < n; i++) {
+    if(arr[i] > largest) {
+      largest = arr[i];
+    }
+  }
+  return largest;
 }
 
 size_t get_match_index(unsigned * match_counts, size_t n,unsigned n_of_akind){
-
+  for(size_t i = 0; i < n; i++) {
+    if(match_counts[i] == n_of_akind) {
+      return i;
+    }
+  }
+  printf("n_of_akind not found in the array match_counts\n");
   return 0;
 }
+
 ssize_t  find_secondary_pair(deck_t * hand,
 			     unsigned * match_counts,
 			     size_t match_idx) {
+  for(size_t i = 0; i < hand->n_cards; i++) {
+    if((*hand->cards[i]).value == (*hand->cards[match_idx]).value) {
+      continue;
+    }
+    else if(match_counts[i] > 1) {
+      return i;
+    }
+  }
   return -1;
 }
 
+unsigned counterForStraight(deck_t * hand, unsigned startIndex) {
+  unsigned counter = 1;
+  unsigned valDiffr;
+
+  for(size_t i = startIndex; i < hand->n_cards - 1; ++i) {
+    if(counter > 5) {
+      valDiffr = (*hand->cards[i]).value - (*hand->cards[i + 1]).value;
+      if(valDiffr == 1) {
+	counter++;
+      }
+      else if(valDiffr == 0) {
+	continue;
+      }
+      else {
+	break;
+      }
+    }
+    else {
+      break;
+    }
+  }
+  return counter;
+}
+
 int is_straight_at(deck_t * hand, size_t index, suit_t fs) {
+  unsigned aceLow = 0;
+  unsigned flushCheck = 1;
+  card_t suitedCard = {(*hand->cards[index]).value, fs};
+
+  unsigned cardsInRow = counterForStraight(hand, index);
+
+  if((*hand->cards[index]).value == 5) {
+    for(size_t i = index; i < hand->n_cards; ++i) {
+      if((*hand->cards[i]).value == 5) {
+	if(counterForStraight(hand, i) == 4) {
+	  aceLow = 1;
+	  suitedCard.value = 5;
+	}
+	break;
+      }
+    }
+  }
+
+  if(((cardsInRow == 5) || (aceLow == 1)) && (fs != NUM_SUITS)) {
+    if((aceLow != 1) && ((*hand->cards[index]).suit != fs)) {
+      flushCheck = 0;
+    }
+    else {
+      for(size_t i = 0; i < (5 - aceLow); i++) {
+	if(deck_contains(hand, suitedCard) == 0) {
+	  flushCheck = 0;
+	  break;
+	}
+	--suitedCard.value;
+      }
+      if (hand->cards[index]->suit != fs) {
+	flushCheck = 0;
+      }
+    }
+  }
+
+  if((flushCheck == 1) || (fs == NUM_SUITS)) {
+    if(aceLow == 1) {
+      return -1;
+    }
+    else if(cardsInRow == 5) {
+      return 1;
+    }
+  }
   return 0;
 }
 
@@ -35,13 +155,51 @@ hand_eval_t build_hand_from_match(deck_t * hand,
 				  size_t idx) {
 
   hand_eval_t ans;
+  unsigned cardCount = n;
+  ans.ranking = what;
+
+  for(size_t i = 0; i < n; i++) {
+    ans.cards[i] = hand->cards[idx + i];
+  }
+
+  for(size_t i = 0; i < idx; i++) {
+    if(cardCount >= 5) {
+      break;
+    }
+    ans.cards[n+i] = hand->cards[i];
+    cardCount++;
+  }
+
+  for(size_t i = 0; cardCount < 5; i++) {
+    ans.cards[cardCount] = hand->cards[idx + n + i];
+    cardCount++;
+  }
   return ans;
 }
 
 
 int compare_hands(deck_t * hand1, deck_t * hand2) {
+  qsort(hand1->cards, hand1->n_cards, sizeof(const card_t *), card_ptr_comp);
+  qsort(hand2->cards, hand2->n_cards, sizeof(const card_t *), card_ptr_comp);
 
-  return 0;
+  hand_eval_t hand1ranked = evaluate_hand(hand1);
+  hand_eval_t hand2ranked = evaluate_hand(hand2);
+
+  int handRankDiffr = hand2ranked.ranking - hand1ranked.ranking;
+
+  if(handRankDiffr != 0) {
+    return handRankDiffr;
+  }
+  else {
+    int cardDiffr;
+    for(size_t i = 0; i < 5; i++) {
+      cardDiffr = (*hand1ranked.cards[i]).value - (*hand2ranked.cards[i]).value;
+      if(cardDiffr != 0) {
+	return cardDiffr;
+      }
+    }
+    return 0;
+  }
 }
 
 
