@@ -82,7 +82,7 @@ unsigned counterForStraight(deck_t * hand, unsigned startIndex) {
   unsigned valDiffr;
 
   for(size_t i = startIndex; i < hand->n_cards - 1; ++i) {
-    if(counter > 5) {
+    if(counter < 5) {
       valDiffr = (*hand->cards[i]).value - (*hand->cards[i + 1]).value;
       if(valDiffr == 1) {
 	counter++;
