@@ -17,6 +17,7 @@ int deck_contains(deck_t * d, card_t c) {
     if(suit_letter(**point) == suit_letter(c) && value_letter(**point) == value_letter(c)) {
       return 1;
     }
+    point++;
   }
   return 0;
 }
