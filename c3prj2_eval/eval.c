@@ -108,7 +108,7 @@ int is_straight_at(deck_t * hand, size_t index, suit_t fs) {
 
   unsigned cardsInRow = counterForStraight(hand, index);
 
-  if((*hand->cards[index]).value == 5) {
+  if((*hand->cards[index]).value == VALUE_ACE) {
     for(size_t i = index; i < hand->n_cards; ++i) {
       if((*hand->cards[i]).value == 5) {
 	if(counterForStraight(hand, i) == 4) {
