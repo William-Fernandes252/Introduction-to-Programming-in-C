@@ -3,51 +3,74 @@
 #include <assert.h>
 #include "deck.h"
 void print_hand(deck_t * hand){
-  card_t ** point = hand->cards;
   for(int i = 0; i < (hand -> n_cards); i++) {
-    print_card(**point);
-    printf("%s", " ");
-    point++;
+    print_card(*hand->cards[i]);
+    printf(" ");
   }
 }
 
 int deck_contains(deck_t * d, card_t c) {
-  card_t ** point = d->cards;
-  for(int j = 1; j < (d->n_cards); j++) {
-    if(suit_letter(**point) == suit_letter(c) && value_letter(**point) == value_letter(c)) {
-      return 1;
-    }
-    point++;
+  card_t checkCard;
+  for(int i = 0; i < d->n_cards; i++) {
+    checkCard.value = (*d->cards[i]).value;
+    checkCard.suit = (*d->cards[i]).suit;
+    if((checkCard.value == c.value) && (checkCard.suit == c.suit)) {
+	return 1;
+      }
   }
   return 0;
 }
 
-void cardPointSwap(card_t ** point1, card_t ** point2) {
-  card_t * tempr = *point1;
-  *point1 = *point2;
-  *point2 = tempr;
+int randomCardSorter(const void * random1_vp, const void * random2_vp) {
+  typedef struct randomCard {
+    card_t * card_p;
+    long int random;
+  } cardRandom;
+
+  const cardRandom * random1_p = random1_vp;
+  const cardRandom * random2_p = random2_vp;
+
+  long int randDiffr = random1_p->random - random2_p->random;
+
+  return randDiffr;
 }
 
 void shuffle(deck_t * d){
-  card_t ** point = d->cards;
-  int size = (int)(d->n_cards);
-  for(int k = 0; k < size; k++) {
-    int shuffle = ((int)rand()) % size;
-    cardPointSwap(point + k, point + shuffle);
+  size_t deckSize = d->n_cards;
+  typedef struct randomCard {
+    card_t * card_p;
+    long random;
+  } cardRandom;
+
+  cardRandom deckRandoms[deckSize];
+
+  for(size_t i = 0; i < deckSize; i++) {
+    deckRandoms[i].card_p = d->cards[i];
+    deckRandoms[i].random = random();
+  }
+
+  qsort(deckRandoms, deckSize, sizeof(cardRandom), randomCardSorter);
+
+  for(size_t i = 0; i < deckSize; i++) {
+    d->cards[i] = deckRandoms[i].card_p;
   }
 }
 
 void assert_full_deck(deck_t * d) {
-  card_t ** point = d->cards;
-  deck_t tempr_deck;
-  tempr_deck.cards = d->cards;
-  for(int l = 0; l < (d->n_cards); l++) {
-    card_t tempr_card = **point;
-    assert_card_valid(tempr_card);
-    if(l > 0) {
-      tempr_deck.n_cards = (size_t)l;
-      assert(!deck_contains(&tempr_deck, tempr_card));
+  card_t card;
+
+  int fullDeck = 1;
+
+  for(suit_t i = SPADES; i < NUM_SUITS; i++) {
+    for(unsigned j = 2; j <= VALUE_ACE; j++) {
+      card.value = j;
+      card.suit = i;
+      int contains = deck_contains(d, card);
+      if(contains == 0) {
+	printf("deck is missing %c%c\n", value_letter(card), suit_letter(card));
+	fullDeck = 0;
+      }
     }
-    point++;
   }
+  assert(fullDeck);
 }
