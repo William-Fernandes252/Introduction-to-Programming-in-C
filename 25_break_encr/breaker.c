@@ -3,41 +3,25 @@
 #include <ctype.h>
 #include <string.h>
 
-int findKey(FILE * f) {
-  int l;
-  int frequency[26];
-  char letters[] = {"abcdefghijklmnopqrstuvwxyz"};
-  while((l = fgetc(f)) != EOF) {
-    if(isalpha(l)) {
-      l = tolower(l);
-      char * p = strchr(letters, (char)l);
-      int s = p - letters;
-      frequency[s]++;
-    }
-  }
-  int mostFrequentLetter = 0;
-  for(int i = 0; i < 26; i++) {
-    if(frequency[i] > mostFrequentLetter) {
-      mostFrequentLetter = frequency[i];
-    }
-  }
-  return mostFrequentLetter;
-}
-
-int breaker(FILE * f) {
+int * frequencyCount(FILE * f) {
   int c;
-  int key = findKey(f);
+  static int result[26] = {0};
   while((c = fgetc(f)) != EOF) {
     if(isalpha(c)) {
-      c = tolower(c);
-      c -= 'a';
-      c += key;
-      c %= 26;
-      c += 'a';
+      ++result[c - 'a'];
     }
-    printf("%c", c);
   }
-  return key;
+  return result;
+}
+
+int findMostFrequentKey(int * freqArray) {
+  int largeIdx = 0;
+  for(size_t i = 0; i < 26; ++i) {
+    if(freqArray[i] > freqArray[largeIdx]) {
+      largeIdx = i;
+    }
+  }
+  return largeIdx;
 }
 
 int main (int argc, char ** argv) {
@@ -51,7 +35,26 @@ int main (int argc, char ** argv) {
     return EXIT_FAILURE;
   }
 
-  int result = breaker(f);
-  fprintf(stdout, "%d", result);
+  int * charFreq;
+  charFreq = frequencyCount(f);
+
+  int encryptedKey;
+  encryptedKey = findMostFrequentKey(charFreq);
+
+  unsigned key;
+
+  if((encryptedKey >= 0) && (encryptedKey < 4)) {
+    key = encryptedKey + 22;
+  }
+  else if((encryptedKey >= 4) && (encryptedKey < 26)) {
+    key = encryptedKey - 4;
+  }
+  else {
+    printf("Key out of range.\n");
+    return EXIT_FAILURE;
+  }
+
+  printf("%d\n", key);
+
   return EXIT_SUCCESS;
 }
