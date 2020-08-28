@@ -16,67 +16,59 @@ void sortData(char ** data, size_t count) {
   qsort(data, count, sizeof(char *), stringOrder);
 }
 
-int main(int argc, char ** argv) {
+void getAndSortData(FILE * inputFile) {
   char ** lines = NULL;
   char * curr = NULL;
-  size_t sz;
-  size_t i = 0;
-  size_t k = 0; 
-  size_t files = 1;
-  if(argc == 1) {
-    while(getline(&curr, &sz, stdin) >= 0) {
-      lines = realloc(lines, (i+1) * sizeof(*lines));
-      lines[i] = curr;
-      curr = NULL;
-      i++;
+  size_t lineSize = 0;
+  size_t nLines = 0; 
+  while(getline(&curr, &lineSize, inputFile) >= 0) {
+    nLines++;
+    lines = realloc(lines, nLines * sizeof(*lines));
+    if(lines == NULL) {
+      fprintf(stderr, "Something wrong with the data.\n");
     }
-
-    free(curr);
-
-    sortData(lines, i);
-
-    for(size_t j = 0; j < i; j++) {
-      printf("%s", lines[j]);
-      free(lines[j]);
-    }
-    free(lines);
+    lines[nLines - 1] = curr;
   }
-
-  if(argc > 1) {
-    while(argc > k) {
-      FILE * f = fopen(argv[files], "r");
-      if(f == NULL) {
-	printf("Failed to open one of the %s input file.\n", argv[files]);
-	return EXIT_FAILURE;
-      }
-      
-      while(getline(&curr, &sz, f) >= 0) {
-	lines = realloc(lines, (i+1) * sizeof(*lines));
-	lines[i] = curr;
-	curr = NULL;
-	i++;
-      }
-
-      free(curr);
-
-      sortData(lines, i);
-
-      for(size_t j = 0; j < i; j++) {
-	printf("%s", lines[j]);
-	free(lines[j]);
-      }
-      free(lines);
-      if (fclose(f) != 0) {
-	printf("Failed to close one of the input files. Data was lost.\n");
-	return EXIT_FAILURE;
-      }
-
-      k++;
-      files++;
-    }
-
-    printf("All files was read and sorted!");
   
-    return EXIT_SUCCESS;
+  free(curr);
+
+  if(nLines < 2) {
+    fprintf(stderr, "Not enough lines");
+    exit(EXIT_FAILURE);
   }
+  
+  sortData(lines, nLines);
+
+  for(size_t j = 0; j < nLines; j++) {
+    printf("%s", lines[j]);
+    free(lines[j]);
+  }
+  free(lines);
+}
+
+int main(int argc, char ** argv) {
+  if(argc == 1) {
+    getAndSortData(stdin);
+  }
+  else if(argc > 1) {
+    for(size_t i = 1; i < argc; i++) {
+      FILE * f = fopen(argv[i], "r");
+      if(f == NULL) {
+	fprintf(stderr, "Failed to open the file.\n");
+	return EXIT_FAILURE;
+      }
+
+      getAndSortData(f);
+      if(fclose(f) != 0) {
+	fprintf(stderr, "Failed to close one of the input files. Data was lost.\n");
+	return EXIT_FAILURE;
+      }
+    }
+  }
+  else {
+    fprintf(stderr, "Some problem occured. Closing the session.\n");
+    return EXIT_FAILURE;
+  }
+  
+  return EXIT_SUCCESS;
 }
