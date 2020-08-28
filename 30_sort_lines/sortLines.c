@@ -28,6 +28,7 @@ void getAndSortData(FILE * inputFile) {
       fprintf(stderr, "Something wrong with the data.\n");
     }
     lines[nLines - 1] = curr;
+    curr = NULL;
   }
   
   free(curr);
@@ -43,6 +44,7 @@ void getAndSortData(FILE * inputFile) {
     printf("%s", lines[j]);
     free(lines[j]);
   }
+  
   free(lines);
 }
 
@@ -51,7 +53,7 @@ int main(int argc, char ** argv) {
     getAndSortData(stdin);
   }
   else if(argc > 1) {
-    for(size_t i = 1; i < argc; i++) {
+    for(size_t i = 1; i < argc; ++i) {
       FILE * f = fopen(argv[i], "r");
       if(f == NULL) {
 	fprintf(stderr, "Failed to open the file.\n");
