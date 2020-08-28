@@ -118,7 +118,7 @@ void printBoard(board_t * b) {
 int countMines(board_t * b, int x, int y) {
   //WRITE ME!
   int mineCount = 0;
-  for(int c = x - 1; c < x + 1; c++) {
+  for(int c = x - 1; c <= x + 1; c++) {
     for(int r = y - 1; r <= y + 1; ++r) {
       if((r < 0) || (r >= b->height) || (c < 0) || (c >= b->width)) {
 	continue;
