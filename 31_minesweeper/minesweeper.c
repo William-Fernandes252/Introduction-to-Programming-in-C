@@ -130,6 +130,7 @@ int countMines(board_t * b, int x, int y) {
   }
   return mineCount;
 }
+
 int click (board_t * b, int x, int y) {
   if (x < 0 || x >= b->width ||
       y < 0 || y >= b->height) {
@@ -153,7 +154,7 @@ int checkWin(board_t * b) {
   //WRITE ME!
   int win = 1;
   for(int i = 0; i < b->height; i++) {
-    for(int j; j < b->width; j++) {
+    for(int j = 0; j < b->width; j++) {
       if(b->board[i][j] == UNKNOWN) {
 	win = 0;
       }
