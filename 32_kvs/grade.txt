@@ -1,45 +1,15 @@
-Grading at Sat Aug 29 03:51:33 UTC 2020
+Grading at Sat Aug 29 15:45:30 UTC 2020
 Attempting to compile:
 #################################################
 testcase1:
-valgrind reported memory errors
+Your output is incorrect
 #################################################
 testcase2:
-valgrind reported memory errors
+Your output is incorrect
 #################################################
 testcase3:
 Your output is correct
-  - Valgrind reported errors
-valgrind was not clean
-==160== Memcheck, a memory error detector
-==160== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
-==160== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
-==160== 
-==160== Parent PID: 159
-==160== 
-==160== 
-==160== HEAP SUMMARY:
-==160==     in use at exit: 2 bytes in 2 blocks
-==160==   total heap usage: 6 allocs, 4 frees, 8,754 bytes allocated
-==160== 
-==160== 1 bytes in 1 blocks are definitely lost in loss record 1 of 2
-==160==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==160==    by 0x400A09: readKVs (in /graderhome/work/32_kvs/kv_test)
-==160==    by 0x400C92: main (in /graderhome/work/32_kvs/kv_test)
-==160== 
-==160== 1 bytes in 1 blocks are definitely lost in loss record 2 of 2
-==160==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==160==    by 0x400A17: readKVs (in /graderhome/work/32_kvs/kv_test)
-==160==    by 0x400C92: main (in /graderhome/work/32_kvs/kv_test)
-==160== 
-==160== LEAK SUMMARY:
-==160==    definitely lost: 2 bytes in 2 blocks
-==160==    indirectly lost: 0 bytes in 0 blocks
-==160==      possibly lost: 0 bytes in 0 blocks
-==160==    still reachable: 0 bytes in 0 blocks
-==160==         suppressed: 0 bytes in 0 blocks
-==160== 
-==160== For counts of detected and suppressed errors, rerun with: -v
-==160== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+  - Valgrind was clean (no errors, no memory leaks)
+valgrind was clean
 
 Overall Grade: F
