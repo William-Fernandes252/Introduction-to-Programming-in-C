@@ -3,36 +3,20 @@
 #include <string.h>
 #include "kv.h"
 
-int getKey(FILE * file, char * curKey) {
-  int k;
-  size_t i = 0;
-  while((k = fgetc(file)) != '=') {
-    if(k == EOF) {
-      return k; 
-    }
-    else {
-      curKey = realloc(curKey, (i + 1) * sizeof(char));
-      curKey[i] = k;
-      i++;
-    }
-  }
-  return k;
+char *  getKey(char * line) {
+  size_t keyLen = (strchr(line, '=') - line);
+  char keyStr[keyLen + 1];
+  memset(keyStr, '\0', keyLen + 1);
+  strncpy(keyStr, line, keyLen);
+  return strdup(keyStr);
 }
 
-int getVal(FILE * file, char * curVal) {
-  int v;
-  size_t i = 0;
-  while((v = fgetc(file)) != '\n') {
-    if(v == EOF) {
-      return v;
-    }
-    else {
-      curVal = realloc(curVal, (i + 1) * sizeof(char));
-      curVal[i] = v;
-      i++;
-    }
-  }
-  return v;
+char * getVal(char * line, size_t keyLen) {
+  size_t valLen = (strchr(line, '=') - line);
+  char valStr[valLen + 1];
+  memset(valStr, '\0', valLen + 1);
+  strncpy(valStr, (line + valLen + 1), valLen);
+  return strdup(valStr);
 }
 
 kvarray_t * readKVs(const char * fname) {
@@ -43,57 +27,73 @@ kvarray_t * readKVs(const char * fname) {
     exit(EXIT_FAILURE);
   }
 
-  kvarray_t * kvPairs = malloc(sizeof(kvarray_t));
-  kvPairs->nKVs = 0;
-  int keyEOF = 0;
-  int valEOF = 0;
-  char * curKey;
-  char * curVal;
-  while((keyEOF != -1) && (valEOF != -1)) {
-    curKey = malloc(sizeof(char));
-    curVal = malloc(sizeof(char));
-    keyEOF = getKey(f, curKey);
-    valEOF = getVal(f, curVal);
-    if((keyEOF == -1) && (valEOF == -1)) {
-      break;
-    }
-    else {
-      (kvPairs->nKVs)++;
-      kvPairs = realloc(kvPairs, sizeof(kvarray_t) + (kvPairs->nKVs) * sizeof(kvpair_t));
-      kvPairs->kvArray[kvPairs->nKVs - 1].key = curKey;
-      kvPairs->kvArray[kvPairs->nKVs - 1].value = curVal;
-    }
+  kvarray_t * kvArray = malloc(sizeof(kvarray_t));
+  kvArray->nPairs = 0;
+  kvArray->pairs = NULL;
+  
+  char * line = NULL;
+  size_t lineSize = 0;
+  size_t i = 0;
+  char * curKey = NULL;
+  char * curVal = NULL;
+
+  while(getline(&line, &lineSize, f) > 0) {
+    kvArray->nPairs++;
+    i = kvArray->nPairs - 1;
+
+    curKey = getKey(line);
+    curVal = getVal(line, strlen(curKey));
+
+    kvArray->pairs = realloc(kvArray->pairs, (kvArray->nPairs) * sizeof(kvpair_t*));
+
+    kvArray->pairs[i] = malloc(sizeof(kvpair_t));
+    kvArray->pairs[i]->key = strdup(curKey);
+    kvArray->pairs[i]->val = strdup(curVal);
+
+    free(curKey);
+    free(curVal);
   }
+
+  free(line);
 
   if(fclose(f) != 0) {
     fprintf(stderr, "Failed to close the file. Data might be lost.\n");
+    exit(EXIT_FAILURE);
   }
-  return kvPairs;
+
+  return kvArray;
 }
 
 
 
 void freeKVs(kvarray_t * pairs) {
   //WRITE ME
-  for(size_t i = 0; i < pairs->nKVs; i++) {
-    free(pairs->kvArray[i].key);
-    free(pairs->kvArray[i].value);
+  for(size_t i = 0; i < pairs->nPairs; i++) {
+    free(pairs->pairs[i]->key);
+    free(pairs->pairs[i]->val);
+    free(pairs->pairs[i]);
   }
+  free(pairs->pairs);
   free(pairs);
 }
 
 void printKVs(kvarray_t * pairs) {
   //WRITE ME
-  for(size_t i = 0; i < pairs->nKVs; i++) {
-    printf("key = '%s' value = '%s'\n", (pairs->kvArray[i]).key, (pairs->kvArray[i]).value);
+  char * key;
+  char * val;
+  for(size_t i = 0; i < pairs->nPairs; i++) {
+    key = pairs->pairs[i]->key;
+    val = pairs->pairs[i]->val;
+    printf("key = '%s' value = '%s'\n", key, val);
   }
 }
 
+
 char * lookupValue(kvarray_t * pairs, const char * key) {
   //WRITE ME
-  for(size_t i = 0; i < pairs->nKVs; i++) {
-    if(strcmp((pairs->kvArray[i]).key, key) == 0) {
-      return ((pairs->kvArray[i]).value);
+  for(size_t i = 0; i < pairs->nPairs; i++) {
+    if (strcmp(key, pairs->pairs[i]->key) == 0) {
+      return ((pairs->pairs[i])->val);
     }
   }
   return NULL;
