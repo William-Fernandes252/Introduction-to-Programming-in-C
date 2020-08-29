@@ -12,7 +12,7 @@ char *  getKey(char * line) {
 }
 
 char * getVal(char * line, size_t keyLen) {
-  size_t valLen = (strchr(line, '=') - line);
+  size_t valLen = strchr(line, '\n') - strchr(line, '=') - 1;
   char valStr[valLen + 1];
   memset(valStr, '\0', valLen + 1);
   strncpy(valStr, (line + valLen + 1), valLen);
