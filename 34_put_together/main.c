@@ -7,32 +7,65 @@
 
 counts_t * countFile(const char * filename, kvarray_t * kvPairs) {
   //WRITE ME
-  return NULL;
+  FILE * keyFILE = fopen(filename, "r");
+  if(keyFILE == NULL) {
+    fprintf(stderr, "Problem opening the key file\n");
+    exit(EXIT_FAILURE);
+  }
+
+  counts_t * curCounts = createCounts();
+
+  size_t lineSize = 0;
+  char * curKey = NULL;
+  size_t curKeyLen = 0;
+  char * curValue = NULL;
+  while(getline(&curKey, &lineSize, keyFILE) > 0) {
+    curKeyLen = strlen(curKey);
+    curKey[curKeyLen - 1] = '\0';
+    curValue = lookupValue(kvPairs, curKey);
+    addCount(curCounts, curValue);
+  }
+
+  free(curKey);
+
+  if(fclose(keyFILE) != 0) {
+    fprintf(stderr, "Problem occured while closing the file. Data lost.\n");
+    exit(EXIT_FAILURE);
+  }
+  
+  return curCounts;
 }
 
 int main(int argc, char ** argv) {
-  //WRITE ME (plus add appropriate error checking!)
- //read the key/value pairs from the file named by argv[1] (call the result kv)
+  if(argc < 2) {
+    fprintf(stderr, "Enter the name of the program , them the input files.\n");
+    exit(EXIT_FAILURE);
+  }
 
- //count from 2 to argc (call the number you count i)
+  kvarray_t * kv = readKVs(argv[1]);
 
-    //count the values that appear in the file named by argv[i], using kv as the key/value pair
-    //   (call this result c)
+  for(size_t i = 2; i < argc; i++) {
+    counts_t * c = countFile(argv[i], kv);
+    char * outName = computeOutputFileName(argv[i]);
 
-    //compute the output file name from argv[i] (call this outName)
+    FILE * f = fopen(outName, "w+");
+    if(f == NULL) {
+      fprintf(stderr, "Failed to open the input files.\n");
+      exit(EXIT_FAILURE);
+    }
 
+    printCounts(c, f);
 
-    //open the file named by outName (call that f)
+    if(fclose(f) != 0) {
+      fprintf(stderr, "Failed to close the input files. Data was lost.\n");
+      exit(EXIT_FAILURE);
+    }
 
-    //print the counts from c into the FILE f
+    free(outName);
+    freeCounts(c);
+  }
 
-    //close f
-
-    //free the memory for outName and c
-
-
-
- //free the memory for kv
-
+  freeKVs(kv);
+  
   return EXIT_SUCCESS;
 }
