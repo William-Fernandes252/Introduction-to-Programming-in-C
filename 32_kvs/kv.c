@@ -23,7 +23,7 @@ kvarray_t * readKVs(const char * fname) {
   //WRITE ME
   FILE * f = fopen(fname, "r");
   if(f == NULL) {
-    fprintf(stderr, "Failed to open the file.\n");
+    fprintf(stderr, "problem opening the file\n");
     exit(EXIT_FAILURE);
   }
 
@@ -57,7 +57,7 @@ kvarray_t * readKVs(const char * fname) {
   free(line);
 
   if(fclose(f) != 0) {
-    fprintf(stderr, "Failed to close the file. Data might be lost.\n");
+    fprintf(stderr, "problem closing the file\n");
     exit(EXIT_FAILURE);
   }
 
