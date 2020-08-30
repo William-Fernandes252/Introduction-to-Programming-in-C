@@ -7,7 +7,7 @@
 #include "eval.h"
 #include "input.h"
 
-deck_t hand_from_string(const char * str, future_cards_t * fc) {
+deck_t * hand_from_string(const char * str, future_cards_t * fc) {
   deck_t * hand = malloc(sizeof(deck_t));
   hand->n_cards = 0;
   hand->cards = NULL;
@@ -16,7 +16,7 @@ deck_t hand_from_string(const char * str, future_cards_t * fc) {
   card_t * futureCardPtr = NULL;
 
   for(size_t i = 0; i < strlen(str); i++) {
-    if(issuper(str[i]) || isdigit(str[i])) {
+    if(isupper(str[i]) || isdigit(str[i])) {
       cardToAdd = card_from_letters(str[i], str[i + 1]);
       add_card_to(hand, cardToAdd);
     }
@@ -24,6 +24,7 @@ deck_t hand_from_string(const char * str, future_cards_t * fc) {
       unkIdx = atoi(&str[i + 1]);
 
       futureCardPtr = add_empty_card(hand);
+      add_future_card(fc, unkIdx, futureCardPtr);
 
       do {
 	i++;
