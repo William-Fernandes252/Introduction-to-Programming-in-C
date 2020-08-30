@@ -51,11 +51,19 @@ int main(int argc, char ** argv) {
   int windex[n_hands + 1];
   for(size_t i = 0; i <= n_hands; i++) {
     windex[i] = 0;
-    int compRes;
-    size_t winnerIdx = 0;
-    int tie;
+  }
 
-    for(size_t j = 0; j < num_trials; j++) {
+  int compRes;
+  size_t winnerIdx;
+  int tie;
+  
+  for(size_t i = 0; i < num_trials; i++) {
+    shuffle(remainingDeck);
+    future_cards_from_deck(remainingDeck, fc);
+    winnerIdx = 0;
+    tie = 0;
+    
+    for(size_t j = 0; j < n_hands; j++) {
       compRes = compare_hands(hands[winnerIdx], hands[i]);
       if(compRes == 0) {
 	tie = 1;
