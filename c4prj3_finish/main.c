@@ -38,7 +38,7 @@ int main(int argc, char ** argv) {
 
   deck_t ** hands = read_input(input, &n_hands, fc);
   printf("Here are the input hands:\n");
-  for(size_t i; i < n_hands; i++) {
+  for(size_t i = 0; i < n_hands; i++) {
     print_hand(hands[i]);
     printf("\n");
   }
