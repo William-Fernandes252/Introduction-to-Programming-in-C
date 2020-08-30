@@ -209,7 +209,48 @@ int compare_hands(deck_t * hand1, deck_t * hand2) {
 //implementation in eval-c4.o) so that the
 //other functions we have provided can make
 //use of get_match_counts.
-unsigned * get_match_counts(deck_t * hand) ;
+unsigned * get_match_counts(deck_t * hand) {
+  unsigned * counts = malloc(hand->n_cards * sizeof(unsigned));
+  unsigned aceCnt = 0, kingCnt = 0, queenCnt = 0, jackCnt = 0, tenCnt = 0, nineCnt = 0, eightCnt = 0, sevenCnt = 0, sixCnt = 0, fiveCnt = 0, fourCnt = 0, threeCnt = 0, twoCnt = 0;
+
+  for(size_t i = 0; i < hand->n_cards; i++) {
+    switch(hand->cards[i]->value) {
+    case VALUE_ACE: aceCnt++; break;
+    case VALUE_KING: kingCnt++; break;
+    case VALUE_QUEEN: queenCnt++; break;
+    case VALUE_JACK: jackCnt++; break;
+    case 10: tenCnt++; break;
+    case 9: nineCnt++; break;
+    case 8: eightCnt++; break;
+    case 7: sevenCnt++; break;
+    case 6: sixCnt++; break;
+    case 5: fiveCnt++; break;
+    case 4: fourCnt++; break;
+    case 3: threeCnt++; break;
+    case 2: twoCnt++; break;
+    }
+  }
+  
+  for(size_t i = 0; i < hand->n_cards; i++) {
+    switch(hand->cards[i]->value) {
+    case VALUE_ACE: counts[i] = aceCnt; break;
+    case VALUE_KING: counts[i] = kingCnt; break;
+    case VALUE_QUEEN: counts[i] = queenCnt; break;
+    case VALUE_JACK: counts[i] = jackCnt; break;
+    case 10: counts[i] = tenCnt; break;
+    case 9: counts[i] = nineCnt; break;
+    case 8: counts[i] = eightCnt; break;
+    case 7: counts[i] = sevenCnt; break;
+    case 6: counts[i] = sixCnt; break;
+    case 5: counts[i] = fiveCnt; break;
+    case 4: counts[i] = fourCnt; break;
+    case 3: counts[i] = threeCnt; break;
+    case 2: counts[i] = twoCnt; break;
+    }
+  }
+  return counts;
+}
+
 
 // We provide the below functions.  You do NOT need to modify them
 // In fact, you should not modify them!
