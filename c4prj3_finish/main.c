@@ -12,5 +12,87 @@
 
 int main(int argc, char ** argv) {
   //YOUR CODE GOES HERE
+  int num_trials;
+
+  if(argc < 2) {
+    fprintf(stderr, "Usage: ./poker inputFile1 inputFile2.\n");
+    exit(EXIT_FAILURE);
+  }
+  else if(argc == 3) {
+    num_trials = atoi(argv[2]);
+  }
+  else {
+    num_trials = 10000;
+  }
+
+  FILE * input = fopen(argv[1], "r");
+  if(input == NULL) {
+    fprintf(stderr, "Failed to open the input file.\n");
+    exit(EXIT_FAILURE);
+  }
+
+  future_cards_t * fc = malloc(sizeof(future_cards_t));
+  fc->n_decks = 0;
+  fc->decks = NULL;
+  size_t n_hands = 0;
+
+  deck_t ** hands = read_input(input, &n_hands, fc);
+  printf("Here are the input hands:\n");
+  for(size_t i; i < n_hands; i++) {
+    print_hand(hands[i]);
+    printf("\n");
+  }
+
+  deck_t * remainingDeck = build_remaining_deck(hands, n_hands);
+  printf("Here is the remaining deck:\n");
+  print_hand(remainingDeck);
+  printf("\n");
+
+  int windex[n_hands + 1];
+  for(size_t i = 0; i <= n_hands; i++) {
+    windex[i] = 0;
+    int compRes;
+    size_t winnerIdx = 0;
+    int tie;
+
+    for(size_t j = 0; j < num_trials; j++) {
+      compRes = compare_hands(hands[winnerIdx], hands[i]);
+      if(compRes == 0) {
+	tie = 1;
+      }
+      else if(compRes < 0) {
+	winnerIdx = j;
+	tie = 0;
+      }
+    }
+    if(tie) {
+      windex[n_hands]++;
+    }
+    else {
+      windex[winnerIdx]++;
+    }
+  }
+
+  for(size_t i = 0; i < n_hands; i++) {
+    printf("Hand %zu won %u / %u times (%.2f%%)\n", i, windex[i], num_trials, ((double)windex[i] / (double)num_trials) * 100);
+  }
+  printf("And there were %u ties\n", windex[n_hands]);
+
+  free_deck(remainingDeck);
+  for(size_t i = 0; i < n_hands; i++) {
+    free_deck(hands[i]);
+  }
+  free(hands);
+  for(size_t i = 0; i < fc->n_decks; i++) {
+    free(fc->decks[i].cards);
+  }
+  free(fc->decks);
+  free(fc);
+
+  if(fclose(input) != 0) {
+    fprintf(stderr, "Failed to close the files.\n");
+    exit(EXIT_FAILURE);
+  }
+
   return EXIT_SUCCESS;
 }
