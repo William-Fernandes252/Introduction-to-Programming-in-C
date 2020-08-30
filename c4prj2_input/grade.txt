@@ -1,0 +1,36 @@
+Grading at Sun Aug 30 03:15:11 UTC 2020
+Compiling cards.c -> cards.o
+Compiling deck.c -> deck.o
+Compiling input.c -> input.o
+input.c:10:8: error: conflicting types for ‘hand_from_string’
+ deck_t hand_from_string(const char * str, future_cards_t * fc) {
+        ^
+In file included from input.c:8:0:
+input.h:7:10: note: previous declaration of ‘hand_from_string’ was here
+ deck_t * hand_from_string(const char * str, future_cards_t * fc);
+          ^
+input.c: In function ‘hand_from_string’:
+input.c:19:8: error: implicit declaration of function ‘issuper’ [-Werror=implicit-function-declaration]
+     if(issuper(str[i]) || isdigit(str[i])) {
+        ^
+input.c:34:10: error: incompatible types when returning type ‘deck_t * {aka struct deck_tag *}’ but ‘deck_t {aka struct deck_tag}’ was expected
+   return hand;
+          ^
+input.c:16:12: error: variable ‘futureCardPtr’ set but not used [-Werror=unused-but-set-variable]
+   card_t * futureCardPtr = NULL;
+            ^
+input.c:15:7: error: variable ‘unkIdx’ set but not used [-Werror=unused-but-set-variable]
+   int unkIdx;
+       ^
+input.c: In function ‘read_input’:
+input.c:50:25: error: incompatible types when assigning to type ‘deck_t * {aka struct deck_tag *}’ from type ‘deck_t {aka struct deck_tag}’
+     hands[*n_hands - 1] = hand_from_string(handStr, fc);
+                         ^
+input.c: In function ‘hand_from_string’:
+input.c:35:1: error: control reaches end of non-void function [-Werror=return-type]
+ }
+ ^
+cc1: all warnings being treated as errors
+Compilation of input.c failed
+
+Overall Grade: F
