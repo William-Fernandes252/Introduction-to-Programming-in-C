@@ -1,4 +1,4 @@
-Grading at Sun Aug 30 04:10:05 UTC 2020
+Grading at Sun Aug 30 04:17:31 UTC 2020
 Running 'make clean' to do a clean build of your project
 rm -rf *.o poker *~
 Running 'make poker OTHERFLAGS=-O3' to build your project
@@ -9,9 +9,6 @@ gcc -Wall -Werror -ggdb3 -std=gnu99 -pedantic -O3   -c -o future.o future.c
 gcc -Wall -Werror -ggdb3 -std=gnu99 -pedantic -O3   -c -o input.o input.c
 gcc -Wall -Werror -ggdb3 -std=gnu99 -pedantic -O3   -c -o main.o main.c
 main.c: In function ‘main’:
-main.c:68:7: error: ‘tie’ may be used uninitialized in this function [-Werror=maybe-uninitialized]
-     if(tie) {
-       ^
 main.c:41:31: error: ‘i’ may be used uninitialized in this function [-Werror=maybe-uninitialized]
    for(size_t i; i < n_hands; i++) {
                                ^
