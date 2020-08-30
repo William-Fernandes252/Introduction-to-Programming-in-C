@@ -38,7 +38,7 @@ counts_t * countFile(const char * filename, kvarray_t * kvPairs) {
 
 int main(int argc, char ** argv) {
   if(argc < 2) {
-    fprintf(stderr, "Enter the name of the program , them the input files.\n");
+    fprintf(stderr, "Enter the name of the program, them the input files.\n");
     exit(EXIT_FAILURE);
   }
 
