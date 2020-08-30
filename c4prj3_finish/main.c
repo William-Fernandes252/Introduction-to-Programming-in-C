@@ -63,7 +63,7 @@ int main(int argc, char ** argv) {
     winnerIdx = 0;
     tie = 0;
     
-    for(size_t j = 0; j < n_hands; j++) {
+    for(size_t j = 1; j < n_hands; j++) {
       compRes = compare_hands(hands[winnerIdx], hands[j]);
       if(compRes == 0) {
 	tie = 1;
