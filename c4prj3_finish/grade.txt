@@ -1,4 +1,4 @@
-Grading at Sun Aug 30 14:39:41 UTC 2020
+Grading at Sun Aug 30 14:44:07 UTC 2020
 Running 'make clean' to do a clean build of your project
 rm -rf *.o poker *~
 Running 'make poker OTHERFLAGS=-O3' to build your project
@@ -11,51 +11,722 @@ gcc -Wall -Werror -ggdb3 -std=gnu99 -pedantic -O3   -c -o main.o main.c
 gcc -o poker -Wall -Werror -ggdb3 -std=gnu99 -pedantic -O3 cards.o deck.o eval.o future.o input.o main.o
  - Starting with some Texas Hold'em hands
 Running a simulation with 20000 draws for 2 hands...
-    Hand 0 was close enough to our answer
-    Hand 1 was close enough to our answer
-    Test case passed!    
+Valgrind reported errors:
+==803== Memcheck, a memory error detector
+==803== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==803== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==803== Command: ./poker inp.txt 20000
+==803== Parent PID: 802
+==803== 
+==803== Conditional jump or move depends on uninitialised value(s)
+==803==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==803==    by 0x4E72EDC: msort_with_tmp (msort.c:45)
+==803==    by 0x4E72EDC: msort_with_tmp.part.0 (msort.c:54)
+==803==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==803==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==803==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==803==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==803==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==803==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==803==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==803==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==803==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==803==    by 0x4E7369E: qsort_r (msort.c:297)
+==803==    by 0x401467: shuffle (deck.c:52)
+==803==    by 0x400B5B: main (main.c:61)
+==803== 
+==803== Conditional jump or move depends on uninitialised value(s)
+==803==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==803==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==803==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==803==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==803==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==803==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==803==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==803==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==803==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==803==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==803==    by 0x4E7369E: qsort_r (msort.c:297)
+==803==    by 0x401467: shuffle (deck.c:52)
+==803==    by 0x400B5B: main (main.c:61)
+==803== 
+==803== Conditional jump or move depends on uninitialised value(s)
+==803==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==803==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==803==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==803==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==803==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==803==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==803==    by 0x4E7369E: qsort_r (msort.c:297)
+==803==    by 0x401467: shuffle (deck.c:52)
+==803==    by 0x400B5B: main (main.c:61)
+==803== 
+==803== Conditional jump or move depends on uninitialised value(s)
+==803==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==803==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==803==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==803==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==803==    by 0x4E7369E: qsort_r (msort.c:297)
+==803==    by 0x401467: shuffle (deck.c:52)
+==803==    by 0x400B5B: main (main.c:61)
+==803== 
+==803== Conditional jump or move depends on uninitialised value(s)
+==803==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==803==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==803==    by 0x4E7369E: qsort_r (msort.c:297)
+==803==    by 0x401467: shuffle (deck.c:52)
+==803==    by 0x400B5B: main (main.c:61)
+==803== 
+==803== Use of uninitialised value of size 8
+==803==    at 0x40360C: future_cards_from_deck (future.c:32)
+==803==    by 0x400B67: main (main.c:62)
+==803== 
+==803== Invalid read of size 4
+==803==    at 0x40360C: future_cards_from_deck (future.c:32)
+==803==    by 0x400B67: main (main.c:62)
+==803==  Address 0x62696c2f7273752f is not stack'd, malloc'd or (recently) free'd
+==803== 
+==803== 
+==803== Process terminating with default action of signal 11 (SIGSEGV): dumping core
+==803==  General Protection Fault
+==803==    at 0x40360C: future_cards_from_deck (future.c:32)
+==803==    by 0x400B67: main (main.c:62)
+==803== 
+==803== HEAP SUMMARY:
+==803==     in use at exit: 1,784 bytes in 77 blocks
+==803==   total heap usage: 186 allocs, 109 frees, 20,568 bytes allocated
+==803== 
+==803== LEAK SUMMARY:
+==803==    definitely lost: 48 bytes in 5 blocks
+==803==    indirectly lost: 176 bytes in 8 blocks
+==803==      possibly lost: 0 bytes in 0 blocks
+==803==    still reachable: 1,560 bytes in 64 blocks
+==803==         suppressed: 0 bytes in 0 blocks
+==803== Rerun with --leak-check=full to see details of leaked memory
+==803== 
+==803== For counts of detected and suppressed errors, rerun with: -v
+==803== Use --track-origins=yes to see where uninitialised values come from
+==803== ERROR SUMMARY: 149 errors from 7 contexts (suppressed: 0 from 0)
 Running a simulation with 25000 draws for 3 hands...
-    Hand 0 was close enough to our answer
-    Hand 1 was close enough to our answer
-    Hand 2 was close enough to our answer
-    Test case passed!    
+Valgrind reported errors:
+==808== Memcheck, a memory error detector
+==808== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==808== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==808== Command: ./poker inp.txt 25000
+==808== Parent PID: 807
+==808== 
+==808== Conditional jump or move depends on uninitialised value(s)
+==808==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==808==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==808==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==808==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==808==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==808==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==808==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==808==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==808==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==808==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==808==    by 0x4E7369E: qsort_r (msort.c:297)
+==808==    by 0x401467: shuffle (deck.c:52)
+==808==    by 0x400B5B: main (main.c:61)
+==808== 
+==808== Conditional jump or move depends on uninitialised value(s)
+==808==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==808==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==808==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==808==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==808==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==808==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==808==    by 0x4E7369E: qsort_r (msort.c:297)
+==808==    by 0x401467: shuffle (deck.c:52)
+==808==    by 0x400B5B: main (main.c:61)
+==808== 
+==808== Conditional jump or move depends on uninitialised value(s)
+==808==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==808==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==808==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==808==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==808==    by 0x4E7369E: qsort_r (msort.c:297)
+==808==    by 0x401467: shuffle (deck.c:52)
+==808==    by 0x400B5B: main (main.c:61)
+==808== 
+==808== Conditional jump or move depends on uninitialised value(s)
+==808==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==808==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==808==    by 0x4E7369E: qsort_r (msort.c:297)
+==808==    by 0x401467: shuffle (deck.c:52)
+==808==    by 0x400B5B: main (main.c:61)
+==808== 
+==808== Use of uninitialised value of size 8
+==808==    at 0x40360C: future_cards_from_deck (future.c:32)
+==808==    by 0x400B67: main (main.c:62)
+==808== 
+==808== Invalid read of size 4
+==808==    at 0x40360C: future_cards_from_deck (future.c:32)
+==808==    by 0x400B67: main (main.c:62)
+==808==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==808== 
+==808== 
+==808== Process terminating with default action of signal 11 (SIGSEGV): dumping core
+==808==  Access not within mapped region at address 0x0
+==808==    at 0x40360C: future_cards_from_deck (future.c:32)
+==808==    by 0x400B67: main (main.c:62)
+==808==  If you believe this happened as a result of a stack
+==808==  overflow in your program's main thread (unlikely but
+==808==  possible), you can try to increase the size of the
+==808==  main thread stack using the --main-stacksize= flag.
+==808==  The main thread stack size used in this run was 8388608.
+==808== 
+==808== HEAP SUMMARY:
+==808==     in use at exit: 1,928 bytes in 84 blocks
+==808==   total heap usage: 185 allocs, 101 frees, 19,736 bytes allocated
+==808== 
+==808== LEAK SUMMARY:
+==808==    definitely lost: 32 bytes in 2 blocks
+==808==    indirectly lost: 264 bytes in 12 blocks
+==808==      possibly lost: 0 bytes in 0 blocks
+==808==    still reachable: 1,632 bytes in 70 blocks
+==808==         suppressed: 0 bytes in 0 blocks
+==808== Rerun with --leak-check=full to see details of leaked memory
+==808== 
+==808== For counts of detected and suppressed errors, rerun with: -v
+==808== Use --track-origins=yes to see where uninitialised values come from
+==808== ERROR SUMMARY: 21 errors from 6 contexts (suppressed: 0 from 0)
 Running a simulation with 25000 draws for 3 hands...
-    Hand 0 was close enough to our answer
-    Hand 1 was close enough to our answer
-    Hand 2 was close enough to our answer
-    Test case passed!    
+Valgrind reported errors:
+==813== Memcheck, a memory error detector
+==813== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==813== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==813== Command: ./poker inp2.txt 25000
+==813== Parent PID: 812
+==813== 
+==813== Conditional jump or move depends on uninitialised value(s)
+==813==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==813==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==813==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==813==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==813==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==813==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==813==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==813==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==813==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==813==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==813==    by 0x4E7369E: qsort_r (msort.c:297)
+==813==    by 0x401467: shuffle (deck.c:52)
+==813==    by 0x400B5B: main (main.c:61)
+==813== 
+==813== Conditional jump or move depends on uninitialised value(s)
+==813==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==813==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==813==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==813==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==813==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==813==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==813==    by 0x4E7369E: qsort_r (msort.c:297)
+==813==    by 0x401467: shuffle (deck.c:52)
+==813==    by 0x400B5B: main (main.c:61)
+==813== 
+==813== Conditional jump or move depends on uninitialised value(s)
+==813==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==813==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==813==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==813==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==813==    by 0x4E7369E: qsort_r (msort.c:297)
+==813==    by 0x401467: shuffle (deck.c:52)
+==813==    by 0x400B5B: main (main.c:61)
+==813== 
+==813== Conditional jump or move depends on uninitialised value(s)
+==813==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==813==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==813==    by 0x4E7369E: qsort_r (msort.c:297)
+==813==    by 0x401467: shuffle (deck.c:52)
+==813==    by 0x400B5B: main (main.c:61)
+==813== 
+==813== Use of uninitialised value of size 8
+==813==    at 0x40360C: future_cards_from_deck (future.c:32)
+==813==    by 0x400B67: main (main.c:62)
+==813== 
+==813== Invalid read of size 4
+==813==    at 0x40360C: future_cards_from_deck (future.c:32)
+==813==    by 0x400B67: main (main.c:62)
+==813==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==813== 
+==813== 
+==813== Process terminating with default action of signal 11 (SIGSEGV): dumping core
+==813==  Access not within mapped region at address 0x0
+==813==    at 0x40360C: future_cards_from_deck (future.c:32)
+==813==    by 0x400B67: main (main.c:62)
+==813==  If you believe this happened as a result of a stack
+==813==  overflow in your program's main thread (unlikely but
+==813==  possible), you can try to increase the size of the
+==813==  main thread stack using the --main-stacksize= flag.
+==813==  The main thread stack size used in this run was 8388608.
+==813== 
+==813== HEAP SUMMARY:
+==813==     in use at exit: 1,928 bytes in 84 blocks
+==813==   total heap usage: 185 allocs, 101 frees, 19,736 bytes allocated
+==813== 
+==813== LEAK SUMMARY:
+==813==    definitely lost: 32 bytes in 2 blocks
+==813==    indirectly lost: 264 bytes in 12 blocks
+==813==      possibly lost: 0 bytes in 0 blocks
+==813==    still reachable: 1,632 bytes in 70 blocks
+==813==         suppressed: 0 bytes in 0 blocks
+==813== Rerun with --leak-check=full to see details of leaked memory
+==813== 
+==813== For counts of detected and suppressed errors, rerun with: -v
+==813== Use --track-origins=yes to see where uninitialised values come from
+==813== ERROR SUMMARY: 21 errors from 6 contexts (suppressed: 0 from 0)
 Running a simulation with 25000 draws for 2 hands...
-    Hand 0 was close enough to our answer
-    Hand 1 was close enough to our answer
-    Test case passed!    
+Valgrind reported errors:
+==818== Memcheck, a memory error detector
+==818== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==818== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==818== Command: ./poker inp2.txt 25000
+==818== Parent PID: 817
+==818== 
+==818== Conditional jump or move depends on uninitialised value(s)
+==818==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==818==    by 0x4E72EDC: msort_with_tmp (msort.c:45)
+==818==    by 0x4E72EDC: msort_with_tmp.part.0 (msort.c:54)
+==818==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==818==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==818==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==818==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==818==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==818==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==818==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==818==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==818==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==818==    by 0x4E7369E: qsort_r (msort.c:297)
+==818==    by 0x401467: shuffle (deck.c:52)
+==818==    by 0x400B5B: main (main.c:61)
+==818== 
+==818== Conditional jump or move depends on uninitialised value(s)
+==818==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==818==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==818==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==818==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==818==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==818==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==818==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==818==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==818==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==818==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==818==    by 0x4E7369E: qsort_r (msort.c:297)
+==818==    by 0x401467: shuffle (deck.c:52)
+==818==    by 0x400B5B: main (main.c:61)
+==818== 
+==818== Conditional jump or move depends on uninitialised value(s)
+==818==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==818==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==818==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==818==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==818==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==818==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==818==    by 0x4E7369E: qsort_r (msort.c:297)
+==818==    by 0x401467: shuffle (deck.c:52)
+==818==    by 0x400B5B: main (main.c:61)
+==818== 
+==818== Conditional jump or move depends on uninitialised value(s)
+==818==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==818==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==818==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==818==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==818==    by 0x4E7369E: qsort_r (msort.c:297)
+==818==    by 0x401467: shuffle (deck.c:52)
+==818==    by 0x400B5B: main (main.c:61)
+==818== 
+==818== Conditional jump or move depends on uninitialised value(s)
+==818==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==818==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==818==    by 0x4E7369E: qsort_r (msort.c:297)
+==818==    by 0x401467: shuffle (deck.c:52)
+==818==    by 0x400B5B: main (main.c:61)
+==818== 
+==818== Use of uninitialised value of size 8
+==818==    at 0x40360C: future_cards_from_deck (future.c:32)
+==818==    by 0x400B67: main (main.c:62)
+==818== 
+==818== Invalid read of size 4
+==818==    at 0x40360C: future_cards_from_deck (future.c:32)
+==818==    by 0x400B67: main (main.c:62)
+==818==  Address 0x62696c2f7273752f is not stack'd, malloc'd or (recently) free'd
+==818== 
+==818== 
+==818== Process terminating with default action of signal 11 (SIGSEGV): dumping core
+==818==  General Protection Fault
+==818==    at 0x40360C: future_cards_from_deck (future.c:32)
+==818==    by 0x400B67: main (main.c:62)
+==818== 
+==818== HEAP SUMMARY:
+==818==     in use at exit: 1,784 bytes in 77 blocks
+==818==   total heap usage: 186 allocs, 109 frees, 20,568 bytes allocated
+==818== 
+==818== LEAK SUMMARY:
+==818==    definitely lost: 48 bytes in 5 blocks
+==818==    indirectly lost: 176 bytes in 8 blocks
+==818==      possibly lost: 0 bytes in 0 blocks
+==818==    still reachable: 1,560 bytes in 64 blocks
+==818==         suppressed: 0 bytes in 0 blocks
+==818== Rerun with --leak-check=full to see details of leaked memory
+==818== 
+==818== For counts of detected and suppressed errors, rerun with: -v
+==818== Use --track-origins=yes to see where uninitialised values come from
+==818== ERROR SUMMARY: 149 errors from 7 contexts (suppressed: 0 from 0)
 Running a simulation with 80000 draws for 4 hands...
-    Hand 0 was close enough to our answer
-    Hand 1 was close enough to our answer
-    Hand 2 was close enough to our answer
-    Hand 3 was close enough to our answer
-    Test case passed!    
+Valgrind reported errors:
+==823== Memcheck, a memory error detector
+==823== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==823== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==823== Command: ./poker inp3.txt 80000
+==823== Parent PID: 822
+==823== 
+==823== Conditional jump or move depends on uninitialised value(s)
+==823==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==823==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==823==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==823==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==823==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==823==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==823==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==823==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==823==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==823==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==823==    by 0x4E7369E: qsort_r (msort.c:297)
+==823==    by 0x401467: shuffle (deck.c:52)
+==823==    by 0x400B5B: main (main.c:61)
+==823== 
+==823== Conditional jump or move depends on uninitialised value(s)
+==823==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==823==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==823==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==823==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==823==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==823==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==823==    by 0x4E7369E: qsort_r (msort.c:297)
+==823==    by 0x401467: shuffle (deck.c:52)
+==823==    by 0x400B5B: main (main.c:61)
+==823== 
+==823== Conditional jump or move depends on uninitialised value(s)
+==823==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==823==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==823==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==823==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==823==    by 0x4E7369E: qsort_r (msort.c:297)
+==823==    by 0x401467: shuffle (deck.c:52)
+==823==    by 0x400B5B: main (main.c:61)
+==823== 
+==823== Conditional jump or move depends on uninitialised value(s)
+==823==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==823==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==823==    by 0x4E7369E: qsort_r (msort.c:297)
+==823==    by 0x401467: shuffle (deck.c:52)
+==823==    by 0x400B5B: main (main.c:61)
+==823== 
+==823== 
+==823== HEAP SUMMARY:
+==823==     in use at exit: 0 bytes in 0 blocks
+==823==   total heap usage: 480,187 allocs, 480,187 frees, 13,458,320 bytes allocated
+==823== 
+==823== All heap blocks were freed -- no leaks are possible
+==823== 
+==823== For counts of detected and suppressed errors, rerun with: -v
+==823== Use --track-origins=yes to see where uninitialised values come from
+==823== ERROR SUMMARY: 720000 errors from 4 contexts (suppressed: 0 from 0)
 Running a simulation with 30000 draws for 2 hands...
-    Hand 0 was close enough to our answer
-    Hand 1 was close enough to our answer
-    Test case passed!    
+Valgrind reported errors:
+==828== Memcheck, a memory error detector
+==828== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==828== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==828== Command: ./poker inp.txt 30000
+==828== Parent PID: 827
+==828== 
+==828== Conditional jump or move depends on uninitialised value(s)
+==828==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==828==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==828==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==828==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==828==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==828==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==828==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==828==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==828==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==828==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==828==    by 0x4E7369E: qsort_r (msort.c:297)
+==828==    by 0x401467: shuffle (deck.c:52)
+==828==    by 0x400B5B: main (main.c:61)
+==828== 
+==828== Conditional jump or move depends on uninitialised value(s)
+==828==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==828==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==828==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==828==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==828==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==828==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==828==    by 0x4E7369E: qsort_r (msort.c:297)
+==828==    by 0x401467: shuffle (deck.c:52)
+==828==    by 0x400B5B: main (main.c:61)
+==828== 
+==828== Conditional jump or move depends on uninitialised value(s)
+==828==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==828==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==828==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==828==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==828==    by 0x4E7369E: qsort_r (msort.c:297)
+==828==    by 0x401467: shuffle (deck.c:52)
+==828==    by 0x400B5B: main (main.c:61)
+==828== 
+==828== Conditional jump or move depends on uninitialised value(s)
+==828==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==828==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==828==    by 0x4E7369E: qsort_r (msort.c:297)
+==828==    by 0x401467: shuffle (deck.c:52)
+==828==    by 0x400B5B: main (main.c:61)
+==828== 
+==828== Conditional jump or move depends on uninitialised value(s)
+==828==    at 0x4C2EDA1: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==828==    by 0x401968: free_deck (deck.c:127)
+==828==    by 0x400C62: main (main.c:89)
+==828== 
+==828== Invalid free() / delete / delete[] / realloc()
+==828==    at 0x4C2EDEB: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==828==    by 0x401968: free_deck (deck.c:127)
+==828==    by 0x400C62: main (main.c:89)
+==828==  Address 0x62696c2f7273752f is not stack'd, malloc'd or (recently) free'd
+==828== 
+==828== 
+==828== HEAP SUMMARY:
+==828==     in use at exit: 8 bytes in 1 blocks
+==828==   total heap usage: 60,151 allocs, 60,151 frees, 1,698,616 bytes allocated
+==828== 
+==828== LEAK SUMMARY:
+==828==    definitely lost: 8 bytes in 1 blocks
+==828==    indirectly lost: 0 bytes in 0 blocks
+==828==      possibly lost: 0 bytes in 0 blocks
+==828==    still reachable: 0 bytes in 0 blocks
+==828==         suppressed: 0 bytes in 0 blocks
+==828== Rerun with --leak-check=full to see details of leaked memory
+==828== 
+==828== For counts of detected and suppressed errors, rerun with: -v
+==828== Use --track-origins=yes to see where uninitialised values come from
+==828== ERROR SUMMARY: 270004 errors from 6 contexts (suppressed: 0 from 0)
  - Next, few Seven Card Stud hands
 Running a simulation with 30000 draws for 2 hands...
-    Hand 0 was close enough to our answer
-    Hand 1 was close enough to our answer
-    Test case passed!    
+Valgrind reported errors:
+==833== Memcheck, a memory error detector
+==833== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==833== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==833== Command: ./poker inp.txt 30000
+==833== Parent PID: 832
+==833== 
+==833== Conditional jump or move depends on uninitialised value(s)
+==833==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==833==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==833==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==833==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==833==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==833==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==833==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==833==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==833==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==833==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==833==    by 0x4E7369E: qsort_r (msort.c:297)
+==833==    by 0x401467: shuffle (deck.c:52)
+==833==    by 0x400B5B: main (main.c:61)
+==833== 
+==833== Conditional jump or move depends on uninitialised value(s)
+==833==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==833==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==833==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==833==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==833==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==833==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==833==    by 0x4E7369E: qsort_r (msort.c:297)
+==833==    by 0x401467: shuffle (deck.c:52)
+==833==    by 0x400B5B: main (main.c:61)
+==833== 
+==833== Conditional jump or move depends on uninitialised value(s)
+==833==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==833==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==833==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==833==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==833==    by 0x4E7369E: qsort_r (msort.c:297)
+==833==    by 0x401467: shuffle (deck.c:52)
+==833==    by 0x400B5B: main (main.c:61)
+==833== 
+==833== Conditional jump or move depends on uninitialised value(s)
+==833==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==833==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==833==    by 0x4E7369E: qsort_r (msort.c:297)
+==833==    by 0x401467: shuffle (deck.c:52)
+==833==    by 0x400B5B: main (main.c:61)
+==833== 
+==833== Use of uninitialised value of size 8
+==833==    at 0x40360C: future_cards_from_deck (future.c:32)
+==833==    by 0x400B67: main (main.c:62)
+==833== 
+==833== Invalid read of size 4
+==833==    at 0x40360C: future_cards_from_deck (future.c:32)
+==833==    by 0x400B67: main (main.c:62)
+==833==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==833== 
+==833== 
+==833== Process terminating with default action of signal 11 (SIGSEGV): dumping core
+==833==  Access not within mapped region at address 0x0
+==833==    at 0x40360C: future_cards_from_deck (future.c:32)
+==833==    by 0x400B67: main (main.c:62)
+==833==  If you believe this happened as a result of a stack
+==833==  overflow in your program's main thread (unlikely but
+==833==  possible), you can try to increase the size of the
+==833==  main thread stack using the --main-stacksize= flag.
+==833==  The main thread stack size used in this run was 8388608.
+==833== 
+==833== HEAP SUMMARY:
+==833==     in use at exit: 1,784 bytes in 78 blocks
+==833==   total heap usage: 163 allocs, 85 frees, 19,520 bytes allocated
+==833== 
+==833== LEAK SUMMARY:
+==833==    definitely lost: 24 bytes in 2 blocks
+==833==    indirectly lost: 192 bytes in 10 blocks
+==833==      possibly lost: 0 bytes in 0 blocks
+==833==    still reachable: 1,568 bytes in 66 blocks
+==833==         suppressed: 0 bytes in 0 blocks
+==833== Rerun with --leak-check=full to see details of leaked memory
+==833== 
+==833== For counts of detected and suppressed errors, rerun with: -v
+==833== Use --track-origins=yes to see where uninitialised values come from
+==833== ERROR SUMMARY: 21 errors from 6 contexts (suppressed: 0 from 0)
 Running a simulation with 40000 draws for 3 hands...
-    Hand 0 was close enough to our answer
-    Hand 1 was close enough to our answer
-    Hand 2 was close enough to our answer
-    Test case passed!    
+Valgrind reported errors:
+==838== Memcheck, a memory error detector
+==838== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==838== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==838== Command: ./poker inp2.txt 40000
+==838== Parent PID: 837
+==838== 
+==838== Conditional jump or move depends on uninitialised value(s)
+==838==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==838==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==838==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==838==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==838==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==838==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==838==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==838==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==838==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==838==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==838==    by 0x4E7369E: qsort_r (msort.c:297)
+==838==    by 0x401467: shuffle (deck.c:52)
+==838==    by 0x400B5B: main (main.c:61)
+==838== 
+==838== Conditional jump or move depends on uninitialised value(s)
+==838==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==838==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==838==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==838==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==838==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==838==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==838==    by 0x4E7369E: qsort_r (msort.c:297)
+==838==    by 0x401467: shuffle (deck.c:52)
+==838==    by 0x400B5B: main (main.c:61)
+==838== 
+==838== Conditional jump or move depends on uninitialised value(s)
+==838==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==838==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==838==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==838==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==838==    by 0x4E7369E: qsort_r (msort.c:297)
+==838==    by 0x401467: shuffle (deck.c:52)
+==838==    by 0x400B5B: main (main.c:61)
+==838== 
+==838== Conditional jump or move depends on uninitialised value(s)
+==838==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==838==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==838==    by 0x4E7369E: qsort_r (msort.c:297)
+==838==    by 0x401467: shuffle (deck.c:52)
+==838==    by 0x400B5B: main (main.c:61)
+==838== 
+==838== Use of uninitialised value of size 8
+==838==    at 0x40360C: future_cards_from_deck (future.c:32)
+==838==    by 0x400B67: main (main.c:62)
+==838== 
+==838== Invalid read of size 4
+==838==    at 0x40360C: future_cards_from_deck (future.c:32)
+==838==    by 0x400B67: main (main.c:62)
+==838==  Address 0x62696c2f7273752f is not stack'd, malloc'd or (recently) free'd
+==838== 
+==838== 
+==838== Process terminating with default action of signal 11 (SIGSEGV): dumping core
+==838==  General Protection Fault
+==838==    at 0x40360C: future_cards_from_deck (future.c:32)
+==838==    by 0x400B67: main (main.c:62)
+==838== 
+==838== HEAP SUMMARY:
+==838==     in use at exit: 1,848 bytes in 82 blocks
+==838==   total heap usage: 243 allocs, 161 frees, 20,144 bytes allocated
+==838== 
+==838== LEAK SUMMARY:
+==838==    definitely lost: 32 bytes in 2 blocks
+==838==    indirectly lost: 312 bytes in 18 blocks
+==838==      possibly lost: 0 bytes in 0 blocks
+==838==    still reachable: 1,504 bytes in 62 blocks
+==838==         suppressed: 0 bytes in 0 blocks
+==838== Rerun with --leak-check=full to see details of leaked memory
+==838== 
+==838== For counts of detected and suppressed errors, rerun with: -v
+==838== Use --track-origins=yes to see where uninitialised values come from
+==838== ERROR SUMMARY: 157 errors from 6 contexts (suppressed: 0 from 0)
  - Then one from a completely made up poker variant
 Running a simulation with 100000 draws for 6 hands...
 Valgrind reported errors:
-==641== Memcheck, a memory error detector
-==641== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
-==641== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
-==641== Command: ./poker whacky.txt 100000
-==641== Parent PID: 640
-==641== 
+==843== Memcheck, a memory error detector
+==843== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==843== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==843== Command: ./poker whacky.txt 100000
+==843== Parent PID: 842
+==843== 
+==843== Conditional jump or move depends on uninitialised value(s)
+==843==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==843==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==843==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==843==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==843==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==843==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==843==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==843==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==843==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==843==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==843==    by 0x4E7369E: qsort_r (msort.c:297)
+==843==    by 0x401467: shuffle (deck.c:52)
+==843==    by 0x400B5B: main (main.c:61)
+==843== 
+==843== Conditional jump or move depends on uninitialised value(s)
+==843==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==843==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==843==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==843==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==843==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==843==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==843==    by 0x4E7369E: qsort_r (msort.c:297)
+==843==    by 0x401467: shuffle (deck.c:52)
+==843==    by 0x400B5B: main (main.c:61)
+==843== 
+==843== Conditional jump or move depends on uninitialised value(s)
+==843==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==843==    by 0x4E72EC6: msort_with_tmp (msort.c:45)
+==843==    by 0x4E72EC6: msort_with_tmp.part.0 (msort.c:53)
+==843==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==843==    by 0x4E7369E: qsort_r (msort.c:297)
+==843==    by 0x401467: shuffle (deck.c:52)
+==843==    by 0x400B5B: main (main.c:61)
+==843== 
+==843== Conditional jump or move depends on uninitialised value(s)
+==843==    at 0x4E72FF3: msort_with_tmp.part.0 (msort.c:105)
+==843==    by 0x4E7369E: msort_with_tmp (msort.c:45)
+==843==    by 0x4E7369E: qsort_r (msort.c:297)
+==843==    by 0x401467: shuffle (deck.c:52)
+==843==    by 0x400B5B: main (main.c:61)
+==843== 
 
-Overall Grade: B
+Overall Grade: F
