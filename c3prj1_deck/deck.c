@@ -44,14 +44,14 @@ void shuffle(deck_t * d){
 
   cardRandom deckRandoms[deckSize];
 
-  for(size_t i = 2; i < deckSize; i++) {
+  for(size_t i = 0; i < deckSize; i++) {
     deckRandoms[i].card_p = d->cards[i];
     deckRandoms[i].random = random();
   }
 
   qsort(deckRandoms, deckSize, sizeof(cardRandom), randomCardSorter);
 
-  for(size_t i = 2; i < deckSize; i++) {
+  for(size_t i = 0; i < deckSize; i++) {
     d->cards[i] = deckRandoms[i].card_p;
   }
 }
